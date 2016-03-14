@@ -1,0 +1,17 @@
+{
+  "name": "mapproject",
+  "description": "map of french quarter",
+  "main": "index.js",
+  "authors": [
+    "Matt Wlodarski"
+  ],
+  "license": "ISC",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node",
+    "yui"
+  ],
+  "homepage": ""
+}

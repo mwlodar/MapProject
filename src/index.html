@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>French Quarter Map</title>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="libraries/knockout.js"></script>
+    <script src="js/oauth-signature.min.js"></script>
+  </head>
+  <body>
+  <div id="map"></div>
+  <div>
+    <h3>Locations:</h3>
+    <p>Filter: <input type="search" data-bind="value: filter, valueUpdate: 'keyup'" /></p>
+    <ul data-bind="foreach: locations, foreach: query()">
+      <li data-bind="text: name, click: $parent.toggleMarker"></li>
+    </ul>
+
+  </div>
+    <script src="js/app.js"></script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL5wos2mBiXxFx5GayRVBpHmJm1-bREt0&callback=initMap" onerror="loadError()">
+    </script>
+  </body>
+</html>
+
