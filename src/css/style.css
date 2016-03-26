@@ -1,3 +1,50 @@
-html, body { height: 100%; margin: 0; padding: 0; }
-#map { height: 75%; }
+
+#map {
+    height: 100vh;
+}
+
+#locationHeading {
+    background: #33CC99;
+    height: 100vh;
+}
+
+.parkInfo  {
+    max-width: 175px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#locationHeading li {
+    font-size: 1.5vw;
+    text-align: center;
+    border-bottom: 1px solid #555;
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
+}
+
+#locationHeading ul {
+    border: 1px solid #555;
+}
+
+#locationHeading li:hover {
+    background-color: #555;
+    color: white;
+}
+
+#locationHeading li:last-child {
+    border-bottom: none;
+}
+
+#locationHeading input {
+    margin-bottom: 2vw;
+    font-size: 1.5vw;
+    width: 100%;
+}
+
+.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+
 

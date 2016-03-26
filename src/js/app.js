@@ -1,5 +1,3 @@
-
-
 var defaultLocations = [
     {'name': 'Jackson Square', 'location': {'coordinate':{'latitude': 29.957466, 'longitude': -90.062972}}, 'marker': ''},
     {'name': 'Woldenberg Park', 'location': {'coordinate':{'latitude': 29.9533, 'longitude': -90.0630}}, 'marker': ''},
@@ -76,7 +74,7 @@ function initMap() {
     //Create Markers for all locations in the default locations array
 
     defaultLocations.forEach(function(park) {
-        var latLng = new google.maps.LatLng(park.location.coordinate.latitude, park.location.coordinate.longitude)
+        var latLng = new google.maps.LatLng(park.location.coordinate.latitude, park.location.coordinate.longitude);
         var marker = new google.maps.Marker({
             position: latLng,
             map: map,
@@ -87,12 +85,12 @@ function initMap() {
         marker.addListener('visible_changed', function() {
             infowindow.close(map, marker);
         });
-        //Populate infowindow with data and add animation to marker click
+        //Populate infowindow with data
         google.maps.event.addListener(marker, 'click', (function(marker) {
             return function() {
                 markerBounce(marker);
                 infowindow.setContent(
-                    '<div id="parkInfo">'+
+                    '<div class="parkInfo">'+
                     '<h3>' + park.name + '</h3>'+
                     '<h3>Rating: ' + park.rating + '   ' +
                     '<img width="40" height="10" src="' + park.rating_img_url_small + '">'+'</h3>'+
@@ -102,7 +100,7 @@ function initMap() {
                 infowindow.open(map, marker);
             };
 
-        //marker animation on click
+        //Add marker animation on click
             function markerBounce(marker) {
                 marker.setAnimation(google.maps.Animation.BOUNCE);
                 setTimeout(stopBounce, 3000);
@@ -112,12 +110,14 @@ function initMap() {
                 }
             }
         })(marker));
-    })
+    });
 }//End initMap
 
 var loadError = function() {
-    alert('Unable to load google map!')
+    alert('Unable to load google map!');
 };
+
+
 
 var viewModel = function() {
     var self = this;
@@ -133,15 +133,14 @@ var viewModel = function() {
                 return true;
             } else {
                 location.marker.setVisible(false);
-                return false
+                return false;
             }
         });
     });
-
+    //respond to user interaction with the location list
     self.toggleMarker = function(listMarker) {
         self.selectedLocation(listMarker);
         google.maps.event.trigger(listMarker.marker, 'click');
-    }
-}//End viewModel
-
+    };
+};//End viewModel
 
