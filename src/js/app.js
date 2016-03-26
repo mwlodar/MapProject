@@ -11,7 +11,7 @@ var yelpKey = 'zrk6D8Qi5dOr7ehfspHaqg';
 var yelpSecret = '-jOfNf8vvxfhTOlsJpJ5pwRV52w';
 var yelpToken = 'JJs5U3RWKuXOQLGLRAYYQquuUpwu63rc';
 var yelpTokenSecret = 'pjbT1bYKg-poG-lyaGYHTfIWnYI';
-var Yelpurl = 'https://api.yelp.com/v2/search?';
+var yelpUrl = 'https://api.yelp.com/v2/search?';
 
 var parameters = {
     term: 'parks',
@@ -27,15 +27,20 @@ var parameters = {
 
 function nonce_generate() {
         return (Math.floor(Math.random() * 1e12).toString());
-    }
+}
 
-var encodedSignature = oauthSignature.generate('GET', Yelpurl, parameters, yelpSecret, yelpTokenSecret);
+var encodedSignature = oauthSignature.generate('GET', yelpUrl, parameters, yelpSecret, yelpTokenSecret);
     parameters.oauth_signature = encodedSignature;
 
+//handle errors with yelp request
+var yelpRequestTimeout = setTimeout(function() {
+        alert("Could not load Yelp data");
+        ko.applyBindings(new viewModel());
+    }, 5000);
 
     //create ajax call
     var settings = {
-        url: Yelpurl,
+        url: yelpUrl,
         data: parameters,
         cache: true,
         jsonpCallback: 'cb',
@@ -47,19 +52,14 @@ var encodedSignature = oauthSignature.generate('GET', Yelpurl, parameters, yelpS
             objectData.forEach(function(object) {
             object.marker = '';
             defaultLocations.push(object);
-        });
+            });
             initMap();
             ko.applyBindings(new viewModel());
-
+            clearTimeout(yelpRequestTimeout);
         },
-        error: function () {
-            //display default data and alert the user of the error
-            alert('failed to load yelp data');
-            ko.applyBindings(new viewModel());
-        }
     };
 $.ajax(settings);
-
+var infowindow;
 //Create Google Map
 function initMap() {
     var initialLatLng = {lat: 29.9586, lng: -90.0650};
@@ -67,7 +67,7 @@ function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
     center: initialLatLng,
     scrollwheel: true,
-    zoom: 12
+    zoom: 13
   });
     infowindow = new google.maps.InfoWindow();
 
@@ -82,9 +82,6 @@ function initMap() {
         });
 
         park.marker = marker;
-        marker.addListener('visible_changed', function() {
-            infowindow.close(map, marker);
-        });
         //Populate infowindow with data
         google.maps.event.addListener(marker, 'click', (function(marker) {
             return function() {
@@ -98,12 +95,13 @@ function initMap() {
                      '</div>'
                     );
                 infowindow.open(map, marker);
+                map.panTo(marker.getPosition());
             };
 
-        //Add marker animation on click
+            //Add marker animation on click
             function markerBounce(marker) {
                 marker.setAnimation(google.maps.Animation.BOUNCE);
-                setTimeout(stopBounce, 3000);
+                setTimeout(stopBounce, 2100);
 
             function stopBounce() {
                 marker.setAnimation(null);

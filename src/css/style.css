@@ -1,50 +1,47 @@
 
-#map {
+map {
     height: 100vh;
+    width: 100vw;
 }
 
-#locationHeading {
+aside {
     background: #33CC99;
     height: 100vh;
+    overflow-y: scroll;
+
 }
 
-.parkInfo  {
-    max-width: 175px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#locationHeading li {
-    font-size: 1.5vw;
+li {
     text-align: center;
     border-bottom: 1px solid #555;
     padding-top: 0.5vw;
     padding-bottom: 0.5vw;
 }
 
-#locationHeading ul {
+ul {
     border: 1px solid #555;
 }
 
-#locationHeading li:hover {
+li:hover {
     background-color: #555;
     color: white;
 }
 
-#locationHeading li:last-child {
+li:last-child {
     border-bottom: none;
 }
 
-#locationHeading input {
+input {
     margin-bottom: 2vw;
     font-size: 1.5vw;
     width: 100%;
 }
 
-.active {
-    background-color: #4CAF50;
-    color: white;
-}
+
+
+
+
+
 
 
 
